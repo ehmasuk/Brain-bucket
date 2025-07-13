@@ -41,7 +41,7 @@ grid_y = 130  # Reduced space for simplified header
 
 # --- Modern Fonts ---
 title_font = pygame.font.SysFont("Arial", 48, bold=True)
-score_font = pygame.font.SysFont("Arial", 18, bold=True)
+score_font = pygame.font.SysFont("Arial", 24, bold=True)
 button_font = pygame.font.SysFont("Arial", 24, bold=True)
 
 # --- Background ---
@@ -178,16 +178,10 @@ def draw_modern_header():
     pygame.draw.rect(screen, human_panel_color, human_panel, border_radius=10)
     pygame.draw.rect(screen, WHITE, human_panel, width=2, border_radius=10)
     
-    # Flexible text positioning
-    human_text = score_font.render("HUMAN", True, WHITE)
-    human_score_text = score_font.render(str(human_score), True, WHITE)
-    
-    # Center the text vertically and add some padding
-    text_y = human_panel.y + (panel_height - human_text.get_height()) // 2 - 5
-    score_y = human_panel.y + (panel_height - human_score_text.get_height()) // 2 + 10
-    
-    screen.blit(human_text, (human_panel.x + 10, text_y))
-    screen.blit(human_score_text, (human_panel.x + 10, score_y))
+    # Human text - side by side format
+    human_text = score_font.render(f"Human: {human_score}", True, WHITE)
+    text_rect = human_text.get_rect(center=human_panel.center)
+    screen.blit(human_text, text_rect)
     
     # AI score panel
     ai_panel = pygame.Rect(WIDTH - 190, 80, panel_width, panel_height)
@@ -197,15 +191,10 @@ def draw_modern_header():
     pygame.draw.rect(screen, ai_panel_color, ai_panel, border_radius=10)
     pygame.draw.rect(screen, WHITE, ai_panel, width=2, border_radius=10)
     
-    # Flexible text positioning for AI
-    ai_text = score_font.render("AI", True, WHITE)
-    ai_score_text = score_font.render(str(ai_score), True, WHITE)
-    
-    text_y = ai_panel.y + (panel_height - ai_text.get_height()) // 2 - 5
-    score_y = ai_panel.y + (panel_height - ai_score_text.get_height()) // 2 + 10
-    
-    screen.blit(ai_text, (ai_panel.x + 10, text_y))
-    screen.blit(ai_score_text, (ai_panel.x + 10, score_y))
+    # AI text - side by side format
+    ai_text = score_font.render(f"AI: {ai_score}", True, WHITE)
+    text_rect = ai_text.get_rect(center=ai_panel.center)
+    screen.blit(ai_text, text_rect)
 
 def draw_modern_card(block):
     """Draw a modern-styled card with enhanced visuals"""
