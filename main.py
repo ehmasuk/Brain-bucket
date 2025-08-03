@@ -2,7 +2,6 @@ import pygame
 import sys
 import os
 import random
-import math
 
 pygame.init()
 
@@ -12,7 +11,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Brain Bucket")
 clock = pygame.time.Clock()
 
-# --- Modern Colors ---
+# --- Colors ---
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 CARD_BACK = (25, 35, 60)  # Dark blue to match background
@@ -26,7 +25,7 @@ BUTTON_HOVER = (80, 180, 255)
 BUTTON_TEXT = WHITE
 SHADOW_COLOR = (0, 0, 0, 50)  # Semi-transparent black
 
-# --- Grid Config ---
+# --- Grid ---
 ROWS, COLS = 4, 4
 BLOCK_SIZE = 90  # Slightly larger
 BLOCK_GAP = 12  # More spacing
@@ -46,7 +45,7 @@ button_font = pygame.font.SysFont("Arial", 24, bold=True)
 
 # --- Background ---
 def create_cover_background():
-    """Create a background image that covers the screen (like CSS background-size: cover)"""
+    """Create a background image that covers the screen"""
     original_bg = pygame.image.load(os.path.join("img", "bg.jpg"))
     original_width, original_height = original_bg.get_size()
     
@@ -308,13 +307,13 @@ while running:
         
         # Draw shadows
         shadow_win = win_font.render(win_text.get_text() if hasattr(win_text, 'get_text') else 
-                                   ("Victory!" if human_score > ai_score else 
+                                  ("Victory!" if human_score > ai_score else 
                                     "Game Over" if ai_score > human_score else "Draw!"), True, (0, 0, 0))
         screen.blit(shadow_win, (win_rect.x + 2, win_rect.y + 2))
         screen.blit(win_text, win_rect)
         screen.blit(subtitle, subtitle_rect)
         
-        # Modern restart button
+        # restart button
         restart_button = create_restart_button()
         mouse_pos = pygame.mouse.get_pos()
         is_hovering = restart_button.collidepoint(mouse_pos)
